@@ -80,3 +80,7 @@ def main():
         logger.info(row)
     cursor.close()
     db.close()
+
+
+if __name__ == '__main__':
+    main()
