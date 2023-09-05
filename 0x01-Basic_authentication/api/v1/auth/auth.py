@@ -2,18 +2,19 @@
 """
 Auth module
 """
-from flask import request, Request
+from flask import request
 from typing import List, TypeVar
 
 
 class Auth:
-    """ Auth Class """
+    """ API authentication manager """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ require auth
         """
-        if path is None or excluded_paths is None\
-                or len(excluded_paths) == 0:
+        if path is None or excluded_paths is None:
+            return True
+        if len(excluded_paths) == 0:
             return True
 
         if path[-1] != '/':
