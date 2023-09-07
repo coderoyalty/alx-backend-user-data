@@ -4,7 +4,7 @@ flask view that handles all route
 for session authentication
 """
 from api.v1.views import app_views
-from flask import request, jsonify
+from flask import abort, request, jsonify
 from models.user import User
 from os import getenv
 
@@ -49,3 +49,16 @@ def post_login():
     session_name = getenv('SESSION_NAME')
     res.set_cookie(session_name, session_id)
     return res
+
+
+@app_views.delete('/auth_session/logout', strict_slashes=False)
+def delete_logout():
+    """
+    delete a session for the currently authenticated user
+    """
+    from api.v1.app import auth
+
+    if not auth.destroy_session(request):
+        abort(404)
+
+    return jsonify({})
