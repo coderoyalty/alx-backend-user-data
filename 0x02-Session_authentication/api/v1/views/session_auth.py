@@ -11,10 +11,10 @@ from os import getenv
 
 @app_views.route('/auth_session/login', methods=["POST"], strict_slashes=False)
 def post_login():
-    from api.v1.app import auth
     """
     route handler
     """
+    from api.v1.app import auth
     # expected form data
     email = request.form.get('email')
     password = request.form.get('password')
