@@ -51,7 +51,8 @@ def post_login():
     return res
 
 
-@app_views.delete('/auth_session/logout', strict_slashes=False)
+@app_views.route('/auth_session/logout', methods=["DELETE"],
+                 strict_slashes=False)
 def delete_logout():
     """
     delete a session for the currently authenticated user
