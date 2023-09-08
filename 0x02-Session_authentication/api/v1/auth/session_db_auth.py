@@ -68,7 +68,13 @@ class SessionDBAuth(SessionExpAuth):
             return False
 
         users = UserSession.search({'session_id': session_id})
+
+        if not users:
+            return False
         user = users[0]
-        user.remove()
-        UserSession.save_to_file()
+        try:
+            user.remove()
+            UserSession.save_to_file()
+        except Exception:
+            return False
         return True
