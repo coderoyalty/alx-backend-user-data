@@ -12,12 +12,6 @@ class SessionDBAuth(SessionExpAuth):
     Session Auth that saves to database
     """
 
-    def __init__(self):
-        """initialize
-        """
-        super().__init__()
-        UserSession.load_from_file()
-
     def create_session(self, user_id=None):
         """create a session"""
         session_id = super().create_session(user_id)
@@ -41,6 +35,7 @@ class SessionDBAuth(SessionExpAuth):
         if not session_id:
             return None
 
+        UserSession.load_from_file()
         sessions = UserSession.search({"session_id": session_id})
 
         if sessions is None:
