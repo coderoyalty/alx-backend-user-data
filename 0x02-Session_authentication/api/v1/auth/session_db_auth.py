@@ -67,8 +67,7 @@ class SessionDBAuth(SessionExpAuth):
         if not user_id:
             return False
 
-        users: list[UserSession] = UserSession.search(
-            {'session_id': session_id})
+        users = UserSession.search({'session_id': session_id})
         user = users[0]
         user.remove()
         UserSession.save_to_file()
