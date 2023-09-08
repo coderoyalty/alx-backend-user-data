@@ -66,8 +66,8 @@ class SessionDBAuth(SessionExpAuth):
 
         if not users:
             return False
-        user = users[0]
         try:
+            user = users[0]
             user.remove()
             UserSession.save_to_file()
         except Exception:
