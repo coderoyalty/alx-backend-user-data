@@ -5,7 +5,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import NoResultFound, InvalidRequestError
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from user import Base, User
 
 
@@ -35,12 +36,8 @@ class DB:
         create and save a new user
         """
         user = User(email=email, hashed_password=hashed_password)
-        try:
-            self._session.add(user)
-            self._session.commit()
-        except Exception:
-            self._session.rollback()
-            return None
+        self._session.add(user)
+        self._session.commit()
         return user
 
     def find_user_by(self, **kwargs) -> User:
