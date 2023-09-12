@@ -22,6 +22,10 @@ def root_get():
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
 def users():
+    """
+    POST - /users
+    create a user with the given credentials
+    """
     email = request.form.get('email')
     password = request.form.get('password')
 
