@@ -71,4 +71,5 @@ class DB:
 
         for k, v in kwargs.items():
             setattr(user, k, v)
+        self._session.commit()
         return
