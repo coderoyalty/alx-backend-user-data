@@ -56,3 +56,19 @@ class DB:
         if not user:
             raise NoResultFound
         return user
+
+    def update_user(self, user_id: int, **kwargs):
+        """
+        update user with `user.id == user_id` using the provided
+        arbitrary keyword arguments
+        """
+        columns = User.__table__.columns.keys()
+        user = self.find_user_by(id=user_id)
+
+        for key in kwargs.keys():
+            if key not in columns:
+                raise ValueError
+
+        for k, v in kwargs.items():
+            setattr(user, k, v)
+        return
