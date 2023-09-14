@@ -111,14 +111,17 @@ def update_password():
     """
     PUT - /reset_password
     """
-    email = request.form.get('email')
-    token = request.form.get('reset_token')
-    new = request.form.get('new_password')
 
     try:
+        email = request.form.get('email')
+        token = request.form.get('reset_token')
+        new = request.form.get('new_password')
         AUTH.update_password(token, new)
-    except:
+    except KeyError:
+        abort(400)
+    except ValueError:
         abort(403)
+
     return jsonify({
         "email": email,
         "message": "Password updated"
